@@ -4,7 +4,7 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.basic.ArticleDao">
 
-    <insert id="write" parameterType="map">
+    <insert id="write" parameterType="com.example.basic.Article">
         INSERT INTO article2
         SET title = #{title}
         , `body` = #{body}
@@ -24,7 +24,7 @@
         WHERE id = #{id}
     </delete>
 
-    <update id="modify" parameterType="map">
+    <update id="modify" parameterType="com.example.basic.Article">
         UPDATE article2
         SET title = #{title}
         , `body` = #{body}

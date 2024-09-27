@@ -17,7 +17,12 @@ public class TestController {
     @RequestMapping("/article/write")
     @ResponseBody
     public String write(String title, String body) {
-        articleDao.write(title, body);
+        Article article = Article.builder()
+                .title(title)
+                .body(body)
+                .build();
+
+        articleDao.write(article);
 
         return "게시물이 성공적으로 저장되었습니다";
     }
@@ -38,7 +43,7 @@ public class TestController {
 
     @RequestMapping("/article/delete/{id}")
     @ResponseBody
-    public String delete(@PathVariable Long id){
+    public String delete(@PathVariable Long id) {
         articleDao.delete(id);
 
         return "게시물을 삭제하였습니다";
@@ -46,10 +51,22 @@ public class TestController {
 
     @RequestMapping("/article/modify/{id}")
     @ResponseBody
-    public String modify(@PathVariable("id") Long id, String title, String body){
-        articleDao.modify(id, title, body);
+    public String modify(@PathVariable("id") long id, String title, String body) {
+        // 빌더 방식
+        Article article = Article.builder()
+                .id(id)
+                .title(title)
+                .body(body)
+                .build();
+
+        articleDao.modify(article);
 
         return "게시물이 수정되었습니다";
+    }
+
+    @RequestMapping("/show-html")
+    public String showHtml() {
+        return "test"; // .html 확장자를 스프링부트가 자동으로 붙여줌
     }
 
 
