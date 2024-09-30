@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>loop</title>
+</head>
+<body>
+
+<!--<div th:each="num : ${#numbers.sequence(1,4)}" th:text="${num}"></div>-->
+
+<div>구구단 2단</div>
+<span th:each="dan: ${#numbers.sequence(1,9)}">2</span>
+<div th:each="dan: ${#numbers.sequence(1,9)}" th:text="${dan*2}">
+</div>
+
+</body>
+</html>
