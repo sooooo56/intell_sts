@@ -5,12 +5,29 @@
     <title>loop</title>
 </head>
 <body>
-
+<!--반복문 기초-->
 <!--<div th:each="num : ${#numbers.sequence(1,4)}" th:text="${num}"></div>-->
 
-<div>구구단 2단</div>
-<span th:each="dan: ${#numbers.sequence(1,9)}">2</span>
-<div th:each="dan: ${#numbers.sequence(1,9)}" th:text="${dan*2}">
+<h3>구구단 2단</h3>
+<div th:with="dan=2">
+    <!--    <div th:each="${dan} + 'x + 1 = ' + ${dan * 1}"></div>-->
+    <div th:each="i : ${#numbers.sequence(1,9)}" th:text="${dan} + 'x' + ${i} + '=' + ${dan*i}"></div>
+</div>
+
+<h3>구구단 2단~9단</h3>
+<div th:each="dan : ${#numbers.sequence(2,9)}">
+    <div th:each="i : ${#numbers.sequence(1,9)}" th:text="${dan} + 'x' + ${i} + '=' + ${dan*i}"></div>
+</div>
+
+<h3>구구단 2단~9단 짝수단만 출력</h3>
+<div th:each="dan : ${#numbers.sequence(2,9)}" th:if="${dan % 2 == 0}">
+    <div th:each="i : ${#numbers.sequence(1,9)}" th:text="${dan} + 'x' + ${i} + '=' + ${dan*i}"></div>
+</div>
+
+<h3>구구단 2단~9단 홀수단, 짝수곱만 출력</h3>
+<div th:each="dan : ${#numbers.sequence(2,9)}" th:if="${dan % 2 == 1}">
+    <div th:each="i : ${#numbers.sequence(1,9)}" th:if="${i % 2 == 0}"
+         th:text="${dan} + 'x' + ${i} + '=' + ${dan*i}"></div>
 </div>
 
 </body>
