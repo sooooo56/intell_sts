@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>datail</title>
+</head>
+<body>
+<div>
+  <label for="title">제목</label>
+  <input type="text" th:value="${article.title}">
+<!--  <div th:text="${article.title}"></div>-->
+</div>
+<hr>
+<div>
+  <label for="body">내용</label>
+  <input type="text" th:value="${article.body}">
+<!--  <div th:text="${article.body}"></div>-->
+</div>
+
+
+</body>
+</html>

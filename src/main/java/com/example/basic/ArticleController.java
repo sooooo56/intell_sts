@@ -2,6 +2,7 @@ package com.example.basic;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class ArticleController {
 
     @GetMapping("/article/write")
     public String articleWrite() {
-        return "article/article-write";
+        return "write";
     }
 
     @PostMapping("/article/write")
@@ -30,18 +31,26 @@ public class ArticleController {
         return "게시물이 성공적으로 저장되었습니다";
     }
 
-    @RequestMapping("/article/list")
-    @ResponseBody
-    public List<Article> list() {
-        return articleDao.list();
+//    @RequestMapping("/article/list")
+//    @ResponseBody
+//    public List<Article> list() {
+//        return articleDao.list();
+//    }
+
+    @GetMapping("/article/list")
+    public String list(Model model) {
+        List<Article> articleList = articleDao.list();
+        model.addAttribute("articleList", articleList);
+
+        return "article/list";
     }
 
-    @RequestMapping("/article/detail")
-    @ResponseBody
-    public Article detail(Long id) {
-        Article articleList = articleDao.detail(id);
+    @RequestMapping("/article/detail/{id}")
+    public String detail(@PathVariable("id") Long id, Model model) {
+        Article article = articleDao.detail(id);
+        model.addAttribute("article", article);
 
-        return articleList;
+        return "article/detail";
     }
 
     @RequestMapping("/article/delete/{id}")
