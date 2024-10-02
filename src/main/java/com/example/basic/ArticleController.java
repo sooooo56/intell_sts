@@ -15,7 +15,7 @@ public class ArticleController {
 
     @GetMapping("/article/write")
     public String articleWrite() {
-        return "write";
+        return "article/write";
     }
 
     @PostMapping("/article/write")
