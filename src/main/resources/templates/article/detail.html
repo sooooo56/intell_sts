@@ -25,7 +25,11 @@
   </div>
   <input type="submit" value="수정">
 </form>
-<div><a th:href="@{|/article/delete/${article.id}|}">삭제</a></div>
+
+<form th:action="@{|/article/delete/${article.id}|}" method="post">
+  <input type="submit" value="삭제" />
+</form>
+<!--<div><a th:href="@{|/article/delete/${article.id}|}">삭제</a></div>-->
 
 </body>
 </html>

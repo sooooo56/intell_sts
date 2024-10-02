@@ -7,14 +7,36 @@
 <body>
 <a href="/article/list">글목록</a>
 <hr>
-  <form action="/article/write" method="post">
+  <form id="write-form" action="/article/write" method="post" onsubmit="checkSubmit(); return false;">
     <div>
-      제목 : <input type="text" name="title" placeholder="제목을 작성해 주세요">
+      제목 : <input id="input-title" type="text" name="title" placeholder="제목을 작성해 주세요">
     </div>
     <div>
-      내용 : <input type="text" name="body" placeholder="내용을 작성해 주세요">
+      내용 : <input id="input-body" type="text" name="body" placeholder="내용을 작성해 주세요">
     </div>
     <button>등록</button>
   </form>
+
+<script>
+  function checkSubmit(){
+    const from = document.getElementById('write-form');
+
+    const titleInput = document.getElementById('input-title');
+    const bodyInput = document.getElementById('input-body');
+
+    if(title.value.trim().length==0){
+      alert('제목을 입력해주세요');
+      return.focus();
+    }
+
+     if(body.value.trim().length==0){
+     alert('내용을 입력해주세요');
+      return.focus();
+    }
+
+    form.submit();
+  }
+</script>
+
 </body>
 </html>
