@@ -5,6 +5,10 @@
   <title>datail</title>
 </head>
 <body>
+<a href="/article/write">글쓰기</a>
+<a href="/article/list">글목록</a>
+<hr>
+
 <form th:action="@{|/article/modify/${article.id}|}" method="post">
   <div>
     <label for="title">제목</label>
@@ -20,8 +24,8 @@
     <!--  <div th:text="${article.body}"></div>-->
   </div>
   <input type="submit" value="수정">
-  <div><a th:href="@{|/article/delete/${article.id}|}">삭제</a></div>
 </form>
+<div><a th:href="@{|/article/delete/${article.id}|}">삭제</a></div>
 
 </body>
 </html>

@@ -5,6 +5,8 @@
     <title>list</title>
 </head>
 <body>
+<a href="/article/write">글쓰기</a>
+<hr>
 <ul>
     <li th:each="article : ${articleList}">
         <a th:href="@{|/article/detail/${article.id}|}" th:text="${article.id} + ', ' + ${article.title}"></a>

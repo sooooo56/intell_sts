@@ -13,13 +13,13 @@ public class ArticleController {
 
     private final ArticleDao articleDao;
 
+    //작성
     @GetMapping("/article/write")
     public String articleWrite() {
         return "article/write";
     }
 
     @PostMapping("/article/write")
-    @ResponseBody
     public String write(String title, String body) {
         Article article = Article.builder()
                 .title(title)
@@ -28,15 +28,11 @@ public class ArticleController {
 
         articleDao.write(article);
 
-        return "게시물이 성공적으로 저장되었습니다";
+        return "redirect:/article/list";
+        //redirect 뒤에 적는 것은 url을 적는 것. 템플릿 이름 아님. 주소창을 해당 url로 바꾸라는 의미
     }
 
-//    @RequestMapping("/article/list")
-//    @ResponseBody
-//    public List<Article> list() {
-//        return articleDao.list();
-//    }
-
+    //목록
     @GetMapping("/article/list")
     public String list(Model model) {
         List<Article> articleList = articleDao.list();
@@ -45,6 +41,7 @@ public class ArticleController {
         return "article/list";
     }
 
+    //상세보기
     @RequestMapping("/article/detail/{id}")
     public String detail(@PathVariable("id") Long id, Model model) {
         Article article = articleDao.detail(id);
@@ -53,14 +50,15 @@ public class ArticleController {
         return "article/detail";
     }
 
+    //삭제
     @RequestMapping("/article/delete/{id}")
-    @ResponseBody
     public String delete(@PathVariable Long id) {
         articleDao.delete(id);
 
-        return "게시물을 삭제하였습니다";
+        return "redirect:/article/list";
     }
 
+    // 수정
     @RequestMapping("/article/modify/{id}")
     public String modify(@PathVariable("id") long id, String title, String body, Model model) {
         // 빌더 방식
@@ -73,7 +71,7 @@ public class ArticleController {
         articleDao.modify(article);
         model.addAttribute("article",article);
 
-        return "article/detail";
+        return "redirect:/article/detail/%d".formatted(id);
     }
 
 
