@@ -62,8 +62,7 @@ public class ArticleController {
     }
 
     @RequestMapping("/article/modify/{id}")
-    @ResponseBody
-    public String modify(@PathVariable("id") long id, String title, String body) {
+    public String modify(@PathVariable("id") long id, String title, String body, Model model) {
         // 빌더 방식
         Article article = Article.builder()
                 .id(id)
@@ -72,8 +71,9 @@ public class ArticleController {
                 .build();
 
         articleDao.modify(article);
+        model.addAttribute("article",article);
 
-        return "게시물이 수정되었습니다";
+        return "article/detail";
     }
 
 

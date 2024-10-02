@@ -20,6 +20,7 @@
     <!--  <div th:text="${article.body}"></div>-->
   </div>
   <input type="submit" value="수정">
+  <div><a th:href="@{|/article/delete/${article.id}|}">삭제</a></div>
 </form>
 
 </body>
