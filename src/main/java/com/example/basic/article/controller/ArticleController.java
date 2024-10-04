@@ -1,5 +1,8 @@
-package com.example.basic;
+package com.example.basic.article.controller;
 
+import com.example.basic.article.dao.ArticleDao;
+import com.example.basic.article.entity.Article;
+import com.example.basic.article.service.ArticleService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -45,12 +48,7 @@ public class ArticleController {
             throw new IllegalArgumentException("내용은 공백일 수 없습니다.");
         }
 
-        Article article = Article.builder()
-                .title(WriteForm.getTitle())
-                .body(WriteForm.getBody())
-                .build();
-
-        articleDao.write(article);
+        articleService.write(title, body);
 
         return "redirect:/article/list";
         //redirect 뒤에 적는 것은 url을 적는 것. 템플릿 이름 아님. 주소창을 해당 url로 바꾸라는 의미
@@ -60,6 +58,7 @@ public class ArticleController {
     @GetMapping("/article/list")
     public String list(Model model) {
         List<Article> articleList = articleDao.list();
+
         model.addAttribute("articleList", articleList);
 
         return "article/list";
@@ -67,8 +66,8 @@ public class ArticleController {
 
     //상세보기
     @RequestMapping("/article/detail/{id}")
-    public String detail(@PathVariable("id") Long id, Model model) {
-        Article article = articleService.getbyId(id); //
+    public String detail(@PathVariable("id") long id, Model model) {
+        Article article = articleService.getById(id); // 데이터 처리(비지니스 로직)
         model.addAttribute("article", article); // 웹 관련 처리
 
         return "article/detail";
@@ -77,7 +76,7 @@ public class ArticleController {
     //삭제
     @RequestMapping("/article/delete/{id}")
     public String delete(@PathVariable Long id) {
-        articleDao.delete(id);
+        articleService.delete(id);
 
         return "redirect:/article/list";
     }
@@ -100,31 +99,12 @@ public class ArticleController {
                 .body(ModifyForm.getBody())
                 .build();
 
-        articleDao.modify(article);
+        articleService.modify(article);
 
         return "redirect:/article/detail/%d".formatted(id);
     }
 
-    // 댓글
-    @GetMapping("/article/comment")
-    public String comment(Model model) {
-        List<Comment> commentList = articleDao.comment();
-        model.addAttribute("commentList", commentList);
 
-        return "article/comment";
-    }
-
-    @RequestMapping("/article/comment")
-    public String comment(long id, @NotBlank String txt){
-        Comment comment = Comment.builder()
-                .id(id)
-                .txt(txt)
-                .build();
-
-        articleDao.comment();
-
-        return "redirect:/article/detail/%d".formatted(id);
-    }
 
 
 }

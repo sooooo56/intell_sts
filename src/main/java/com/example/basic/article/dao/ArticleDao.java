@@ -1,5 +1,6 @@
-package com.example.basic;
+package com.example.basic.article.dao;
 
+import com.example.basic.article.entity.Article;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface ArticleDao {
     //void modify(@Param("id")Long id, @Param("title")String title, @Param("body")String body);
     void modify(Article article);
 
-    public List<Comment> comment();
+//    public List<Comment> comment();
 
 
 }

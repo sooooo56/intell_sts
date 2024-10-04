@@ -2,20 +2,20 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.basic.ArticleDao">
+<mapper namespace="com.example.basic.article.dao.ArticleDao">
 
-    <insert id="write" parameterType="com.example.basic.Article">
+    <insert id="write" parameterType="com.example.basic.article.entity.Article">
         INSERT INTO article2
         SET title = #{title}
         , `body` = #{body}
     </insert>
 
-    <select id="detail" parameterType="Long" resultType="com.example.basic.Article">
+    <select id="detail" parameterType="Long" resultType="com.example.basic.article.entity.Article">
         SELECT * FROM article2
         WHERE id = #{id}
     </select>
 
-    <select id="list" resultType="com.example.basic.Article">
+    <select id="list" resultType="com.example.basic.article.entity.Article">
         SELECT * FROM article2
     </select>
 
@@ -24,21 +24,21 @@
         WHERE id = #{id}
     </delete>
 
-    <update id="modify" parameterType="com.example.basic.Article">
+    <update id="modify" parameterType="com.example.basic.article.entity.Article">
         UPDATE article2
         SET title = #{title}
         , `body` = #{body}
         WHERE id = #{id};
     </update>
 
-    <insert id="comment" parameterType="com.example.basic.comment">
-        INSERT INTO `comment`
-        SET txt = #{txt}
-    </insert>
+<!--    <insert id="comment" parameterType="com.example.basic.comment">-->
+<!--        INSERT INTO `comment`-->
+<!--        SET txt = #{txt}-->
+<!--    </insert>-->
 
-    <select id="commentList" resultType="com.example.basic.Comment">
-        SELECT * FROM `comment`
-    </select>
+<!--    <select id="commentList" resultType="com.example.basic.comment.Comment">-->
+<!--        SELECT * FROM `comment`-->
+<!--    </select>-->
 
 
 

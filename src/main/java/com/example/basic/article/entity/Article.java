@@ -1,4 +1,4 @@
-package com.example.basic;
+package com.example.basic.article.entity;
 
 import lombok.*;
 
