@@ -17,5 +17,8 @@ public interface ArticleDao {
     //void modify(@Param("id")Long id, @Param("title")String title, @Param("body")String body);
     void modify(Article article);
 
+    public List<Comment> comment();
+
+
 }
 

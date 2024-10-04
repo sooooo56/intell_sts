@@ -31,5 +31,15 @@
         WHERE id = #{id};
     </update>
 
+    <insert id="comment" parameterType="com.example.basic.comment">
+        INSERT INTO `comment`
+        SET txt = #{txt}
+    </insert>
+
+    <select id="commentList" resultType="com.example.basic.Comment">
+        SELECT * FROM `comment`
+    </select>
+
+
 
 </mapper>
