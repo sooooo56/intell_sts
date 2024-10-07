@@ -9,7 +9,7 @@ import java.util.List;
 public interface ArticleDao {
     void write(Article article);
 
-    public List<Article> list();
+    public List<Article> findAll();
 
     public Article detail(Long id);
 

@@ -15,7 +15,7 @@
         WHERE id = #{id}
     </select>
 
-    <select id="list" resultType="com.example.basic.article.entity.Article">
+    <select id="findAll" resultType="com.example.basic.article.entity.Article">
         SELECT * FROM article2
     </select>
 
