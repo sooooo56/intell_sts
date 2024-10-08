@@ -48,6 +48,7 @@ public class ArticleController {
     public String list(Model model) {
         List<Article> articleList = articleService.getAll();
         model.addAttribute("articleList", articleList);
+        model.addAttribute("loginedUser", "hong");
 
         return "article/list";
     }
@@ -83,7 +84,13 @@ public class ArticleController {
         return "redirect:/article/detail/%d".formatted(id); // 브라우저 출력 => html 문자열로 출력
     }
 
+    //댓글
+    @RequestMapping("/article/comment")
+    public String comment(String ment, long id){
+        articleService.writeComment(ment);
 
+        return "redirect:/article/detail/%d".formatted(id);
+    }
 
 
 }

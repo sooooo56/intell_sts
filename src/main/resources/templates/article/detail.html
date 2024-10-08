@@ -1,4 +1,4 @@
-<html layout:decorate="~{article/layout}">
+<html lang="ko" layout:decorate="~{article/layout}">
 <div layout:fragment="content">
     <form th:action="@{|/article/modify/${article.id}|}" method="post" onsubmit="checkSubmit(this); return false;">
         <div>
@@ -22,7 +22,8 @@
     <hr>
 
     <form action="article/comment">
-        <input type="text" name="txt">
+        <label for="comment">댓글</label>
+        <input type="text" name="ment">
         <input type="submit" value="등록">
     </form>
 

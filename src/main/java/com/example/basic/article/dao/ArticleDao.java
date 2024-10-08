@@ -20,6 +20,7 @@ public interface ArticleDao {
 
 //    public List<Comment> comment();
 
+    void comment(String comment);
 
 }
 

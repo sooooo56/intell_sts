@@ -1,7 +1,7 @@
 package com.example.basic.article.service;
 
-import com.example.basic.article.entity.Article;
 import com.example.basic.article.dao.ArticleDao;
+import com.example.basic.article.entity.Article;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +12,9 @@ import java.util.List;
 public class ArticleService {
 
     private final ArticleDao articleDao;
+
+    // 1. 기능 구현
+    // 2. 유지 보수를 생각한 코드
 
     //작성
     public void write(String title, String body) {
@@ -24,22 +27,18 @@ public class ArticleService {
         articleDao.write(article);
     }
 
-    // 1. 기능 구현
-    // 2. 유지 보수를 생각한 코드
+    // 리스트
+    public List<Article> getAll() {
+        return articleDao.findAll();
+    }
+
+    // 상세보기
     public Article getById(long id) {
         Article article = articleDao.detail(id); // 데이터 처리(비지니스 로직)
         return article;
     }
 
-    public List<Article> getAll() {
-        return articleDao.findAll();
-    }
-
-
-    public void deleteById(long id) {
-        articleDao.delete(id);
-    }
-
+    //수정
     public void update(long id, String title, String body) {
         // 빌더 방식
         Article article = Article.builder()
@@ -50,4 +49,15 @@ public class ArticleService {
 
         articleDao.modify(article);
     }
+
+    // 삭제
+    public void deleteById(long id) {
+        articleDao.delete(id);
+    }
+
+    public void writeComment(String ment){
+        articleDao.comment(ment);
+    }
+
+
 }
