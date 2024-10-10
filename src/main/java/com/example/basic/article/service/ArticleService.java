@@ -55,9 +55,9 @@ public class ArticleService {
         articleDao.delete(id);
     }
 
-    public void writeComment(String ment){
-        articleDao.comment(ment);
-    }
+//    public void writeComment(String ment){
+//        articleDao.comment(ment);
+//    }
 
 
 }

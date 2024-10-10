@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class MemberController {
 
-    @GetMapping("/login")
+    @GetMapping("member/login")
     public String login() {
         return "member/login";
     }
@@ -27,8 +28,8 @@ public class MemberController {
         private String password;
     }
 
-    @PostMapping("/login")
-    public String login(@Valid LoginForm loginForm) {
+    @PostMapping("member/login")
+    public String login(@Valid LoginForm loginForm, Model model) {
         String dbUser = "hong";
         String dbPass = "1234";
 
@@ -37,8 +38,10 @@ public class MemberController {
             return "member/login-fail";
         }
 
+        model.addAttribute("logineduser",loginForm.username);
+
         // 로그인 성공
         return "redirect:/article/list";
-
     }
+
 }
