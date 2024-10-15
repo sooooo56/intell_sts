@@ -1,9 +1,11 @@
-package com.example.basic.article.controller;
+package com.example.basic.domain.article.controller;
 
-import com.example.basic.article.entity.Article;
-import com.example.basic.article.service.ArticleService;
+import com.example.basic.domain.article.entity.Article;
+import com.example.basic.domain.article.service.ArticleService;
+import com.example.basic.global.ReqResHandler;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -23,10 +25,20 @@ import java.util.List;
 public class ArticleController {
 
     private final ArticleService articleService;
+    private final ReqResHandler reqResHandler;
 
     //작성
     @GetMapping("/article/write")
-    public String articleWrite() {
+    public String articleWrite(HttpServletRequest request,Model model) {
+
+        Cookie targetCookie = reqResHandler.getCookieByName(request, "loginUser");
+
+        // 단골이냐 아니냐(쿠폰 여부)
+        if (targetCookie != null) {
+            model.addAttribute("loginedUser", targetCookie.getValue());
+            Cookie role = reqResHandler.getCookieByName(request, "role");
+            model.addAttribute("role", role.getValue()); // 웹 관련 처리
+        }
         return "article/write";
     }
 
@@ -47,42 +59,32 @@ public class ArticleController {
 
     //목록
     @RequestMapping("/article/list")
-    public String list(Model model, HttpServletRequest request) {
+    public String list(Model model, HttpServletRequest request, HttpSession session) {
         List<Article> articleList = articleService.getAll();
 
-        Cookie[] cookies = request.getCookies();
-        Cookie targetCookie = null;
-
-        if(cookies != null) {
-            for(Cookie cookie : cookies) {
-                if(cookie.getName().equals("loginUser")) {
-                    targetCookie = cookie;
-                }
-            }
-        }
-
-        // 단골이냐 아니냐(쿠폰 여부)
-        if(targetCookie == null) {
-            // loginUser 쿠폰 없으면 일반. (쿠폰이 없습니다 출력)
-            System.out.println("쿠키가 없습니다.");
-        } else {
-            // loginUser 쿠폰 있으면 단골. (loginUser 쿠폰값 출력)
-            System.out.println("loginedMember : " + targetCookie.getValue());
-            model.addAttribute("loginedUser", targetCookie.getValue());
-        }
+        // 장부 체크
+        // 세션은 기본적으로 object타입이다
+        // 그래서 스트링타입에 담기위해선 형변환이 필요
+        // 상위>하위 타입으로 변환하기때문에 수동형변환이 필요 (반대는 자동 형변환 해줌)
 
         model.addAttribute("articleList", articleList);
-
-
         return "article/list";
     }
 
     //상세보기
     @RequestMapping("/article/detail/{id}")
-    public String detail(@PathVariable("id") long id, Model model) {
+    public String detail(@PathVariable("id") long id, Model model,HttpServletRequest request) {
+
+        Cookie targetCookie = reqResHandler.getCookieByName(request, "loginUser");
+
+        if (targetCookie != null) {
+            model.addAttribute("loginedUser", targetCookie.getValue());
+            Cookie role = reqResHandler.getCookieByName(request, "role");
+            model.addAttribute("role", role.getValue()); // 웹 관련 처리
+        }
+
         Article article = articleService.getById(id); // 데이터 처리(비지니스 로직)
         model.addAttribute("article", article); // 웹 관련 처리
-
         return "article/detail";
     }
 
@@ -107,8 +109,6 @@ public class ArticleController {
         articleService.update(id, modifyForm.getTitle(), modifyForm.getBody());
         return "redirect:/article/detail/%d".formatted(id); // 브라우저 출력 => html 문자열로 출력
     }
-
-
 
 
 }
