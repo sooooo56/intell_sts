@@ -29,16 +29,8 @@ public class ArticleController {
 
     //작성
     @GetMapping("/article/write")
-    public String articleWrite(HttpServletRequest request,Model model) {
+    public String articleWrite(HttpServletRequest request,Model model,HttpSession session) {
 
-        Cookie targetCookie = reqResHandler.getCookieByName(request, "loginUser");
-
-        // 단골이냐 아니냐(쿠폰 여부)
-        if (targetCookie != null) {
-            model.addAttribute("loginedUser", targetCookie.getValue());
-            Cookie role = reqResHandler.getCookieByName(request, "role");
-            model.addAttribute("role", role.getValue()); // 웹 관련 처리
-        }
         return "article/write";
     }
 

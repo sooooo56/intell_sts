@@ -1,11 +1,9 @@
 package com.example.basic.domain.auth.filter;
 
 import jakarta.servlet.*;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@Component
 public class TestFilter implements Filter {
 
     @Override
