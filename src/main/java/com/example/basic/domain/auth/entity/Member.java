@@ -13,10 +13,23 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // pk 자동 증가 옵션
-    private long id; // 관리의 용이성을 위해 pk를 숫자로 따로 만듬
+    private long id; // 관리의 용이성을 위해 PK를 숫자로 따로 만듦.
 
     @Column(unique = true)
-    private String username; // 로그인 아이디
+    private String username; // 로그인 아이디 -> 중복 허용 X
     private String password;
-    private String role;
+    private String role; // admin, normal
+
+    public String switchKoreanRole() {
+
+        switch (this.role) {
+            case "admin" :
+                return "관리자";
+            case "normal" :
+                return "일반회원";
+        }
+
+        throw new RuntimeException("없는 권한 정보입니다.");
+    }
+
 }
