@@ -21,9 +21,10 @@
 
     <hr>
 
-    <form action="article/comment">
+    <form action="/comment/write" method="post">
         <label for="comment">댓글</label>
-        <input type="text" name="ment">
+        <input type="text" name="body" placeholder="댓글을 입력하세요">
+        <input type="text" name="articleId" th:value="${article.id}">
         <input type="submit" value="등록">
     </form>
 

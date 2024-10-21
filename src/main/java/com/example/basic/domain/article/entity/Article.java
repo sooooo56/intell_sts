@@ -22,6 +22,7 @@ public class Article {
     // 한명의 회원이 여러개의 게시글을 다룬다
     // Article을 기준으로 many
     // Member은 one
+    // 내가 작성하는 클래스 기준으로 작성
     @ManyToOne
     @JoinColumn(name = "author_id") //외래키 이름 설정
     // 외래키 이름설정을 안하면 member_id로 지정됨
